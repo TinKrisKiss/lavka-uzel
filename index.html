@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#191a1f" />
+<title>Лавка UZEL — декор и аксессуары ручной работы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#191a1f;
+    --indigo:#222836;
+    --orange:#e78608;
+    --ochre:#a86e16;
+    --gray:#a7a198;
+    --white:#ededed;
+    --radius:14px;
+    --maxw:1120px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-weight:400;
+    background:var(--bg);
+    color:var(--gray);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  img,svg{display:block;max-width:100%}
+
+  .container{
+    width:100%;
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 20px;
+  }
+
+  /* Header */
+  .header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(25,26,31,.95);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--indigo);
+  }
+  .header__inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:64px;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+    color:var(--white);
+    letter-spacing:.02em;
+  }
+  .logo__mark{
+    width:28px;height:28px;
+    display:grid;place-items:center;
+    border:1.5px solid var(--ochre);
+    border-radius:50%;
+    color:var(--ochre);
+  }
+  .logo__mark svg{width:14px;height:14px}
+  .logo__name{font-size:15px}
+
+  .nav{display:none}
+  .nav__list{display:flex;gap:28px;list-style:none}
+  .nav__link{
+    font-size:14px;
+    color:var(--gray);
+    transition:color .25s var(--ease);
+    position:relative;
+  }
+  .nav__link::after{
+    content:"";
+    position:absolute;
+    left:0;bottom:-6px;
+    width:0;height:1px;
+    background:var(--orange);
+    transition:width .3s var(--ease);
+  }
+  .nav__link:hover{color:var(--white)}
+  .nav__link:hover::after{width:100%}
+
+  .burger{
+    width:40px;height:40px;
+    display:grid;place-items:center;
+    border-radius:10px;
+    transition:background .25s var(--ease);
+  }
+  .burger:hover{background:var(--indigo)}
+  .burger span{
+    position:relative;
+    width:20px;height:2px;
+    background:var(--white);
+    transition:transform .3s var(--ease),opacity .2s var(--ease);
+  }
+  .burger span::before,
+  .burger span::after{
+    content:"";
+    position:absolute;left:0;
+    width:20px;height:2px;
+    background:var(--white);
+    transition:transform .3s var(--ease);
+  }
+  .burger span::before{top:-6px}
+  .burger span::after{top:6px}
+  .burger.is-open span{background:transparent}
+  .burger.is-open span::before{transform:translateY(6px) rotate(45deg)}
+  .burger.is-open span::after{transform:translateY(-6px) rotate(-45deg)}
+
+  .mobile-menu{
+    position:fixed;
+    inset:64px 0 0 0;
+    background:var(--bg);
+    transform:translateY(-100%);
+    opacity:0;
+    pointer-events:none;
+    transition:transform .35s var(--ease),opacity .25s var(--ease);
+    z-index:40;
+    padding:40px 20px;
+  }
+  .mobile-menu.is-open{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+  .mobile-menu__list{list-style:none;display:flex;flex-direction:column;gap:24px}
+  .mobile-menu__link{
+    font-size:22px;
+    font-weight:700;
+    color:var(--white);
+    display:block;
+    padding:8px 0;
+    border-bottom:1px solid var(--indigo);
+  }
+
+  /* Sections Base */
+  section{padding:72px 0}
+  .section-title{
+    font-weight:700;
+    font-size:28px;
+    line-height:1.15;
+    color:var(--ochre);
+    margin-bottom:16px;
+    letter-spacing:-.01em;
+  }
+  .section-lead{
+    color:var(--orange);
+    font-size:16px;
+    font-weight:400;
+    max-width:640px;
+    margin-bottom:32px;
+    line-height:1.55;
+  }
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:14px 26px;
+    border-radius:12px;
+    font-weight:500;
+    font-size:15px;
+    letter-spacing:.01em;
+    transition:transform .25s var(--ease),opacity .25s var(--ease),background .25s var(--ease),color .25s var(--ease);
+    white-space:nowrap;
+  }
+  .btn--primary{
+    background:var(--orange);
+    color:var(--white);
+  }
+  .btn--primary:hover{opacity:.88;transform:translateY(-2px)}
+  .btn--ghost{
+    background:transparent;
+    color:var(--orange);
+    border:1.5px solid var(--orange);
+  }
+  .btn--ghost:hover{background:var(--orange);color:var(--white)}
+  .btn--sm{padding:10px 16px;font-size:13px;border-radius:10px}
+
+  .btn-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    margin-bottom:32px;
+  }
+
+  /* Hero */
+  .hero{
+    padding:60px 0 72px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero__eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ochre);
+    margin-bottom:20px;
+  }
+  .hero__eyebrow::before{
+    content:"";
+    width:28px;height:1px;
+    background:var(--ochre);
+  }
+  .hero__title{
+    font-weight:700;
+    font-size:48px;
+    line-height:1.02;
+    color:var(--orange);
+    letter-spacing:-.02em;
+    margin-bottom:16px;
+  }
+  .hero__subtitle{
+    color:var(--gray);
+    font-size:17px;
+    max-width:520px;
+    margin-bottom:28px;
+  }
+  .hero__image{
+    width:100%;
+    aspect-ratio:12/5;
+    object-fit:cover;
+    border-radius:var(--radius);
+    margin-bottom:32px;
+    display:block;
+  }
+
+  /* Cards Grid (Available) */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+  .card{
+    background:var(--indigo);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    transition:transform .3s var(--ease),border-color .3s var(--ease);
+    border:1px solid transparent;
+  }
+  .card:hover{transform:translateY(-4px);border-color:var(--ochre)}
+  .card__media{
+    aspect-ratio:1/1;
+    background:var(--bg);
+    position:relative;
+    overflow:hidden;
+  }
+  .card__media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .5s var(--ease);
+  }
+  .card:hover .card__media img{transform:scale(1.05)}
+  .card__body{
+    padding:14px 14px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    flex:1;
+  }
+  .card__name{
+    color:var(--white);
+    font-weight:700;
+    font-size:14px;
+    line-height:1.25;
+  }
+  .card__desc{
+    color:var(--gray);
+    font-size:12px;
+    line-height:1.45;
+    margin-bottom:10px;
+  }
+  .card__foot{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:auto;
+  }
+  .card__price{
+    color:var(--white);
+    font-weight:700;
+    font-size:14px;
+    display:flex;
+    align-items:flex-end;
+    gap:2px;
+  }
+  .card__price-number{font-size:16px}
+  .card__price-currency{font-size:12px;margin-bottom:2px}
+  .card__status{
+    display:inline-block;
+    font-size:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ochre);
+    margin-bottom:4px;
+  }
+
+  /* Carousel (Packaging) */
+  .carousel{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scroll-behavior:smooth;
+    padding-bottom:8px;
+    margin-bottom:24px;
+    scrollbar-width:none;
+  }
+  .carousel::-webkit-scrollbar{display:none}
+  .carousel__slide{
+    flex:0 0 85%;
+    scroll-snap-align:start;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .carousel__media{
+    aspect-ratio:4/5;
+    background:var(--indigo);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .carousel__media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .5s var(--ease);
+  }
+  .carousel__slide:hover .carousel__media img{transform:scale(1.03)}
+  .carousel__caption{
+    color:var(--gray);
+    font-size:13px;
+    padding:0 4px;
+  }
+  .carousel__dots{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-bottom:24px;
+  }
+  .carousel__dot{
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--indigo);
+    border:none;
+    padding:0;
+    transition:background .25s var(--ease),transform .25s var(--ease);
+  }
+  .carousel__dot.is-active{
+    background:var(--orange);
+    transform:scale(1.25);
+  }
+  .anchor-line{
+    color:var(--gray);
+    font-size:15px;
+    line-height:1.5;
+    padding-left:16px;
+    border-left:2px solid var(--ochre);
+  }
+
+  /* Custom Order Cards */
+  .custom-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-bottom:32px;
+  }
+  .custom-card{
+    background:var(--indigo);
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid transparent;
+    transition:border-color .3s var(--ease);
+  }
+  .custom-card:hover{border-color:var(--ochre)}
+  .custom-card__media{
+    aspect-ratio:4/3;
+    background:var(--bg);
+    overflow:hidden;
+  }
+  .custom-card__media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .5s var(--ease);
+  }
+  .custom-card:hover .custom-card__media img{transform:scale(1.03)}
+  .custom-card__caption{
+    padding:16px 18px;
+    color:var(--white);
+    font-weight:700;
+    font-size:15px;
+  }
+  .deadline-block{
+    background:var(--indigo);
+    border-left:2px solid var(--ochre);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:20px 24px;
+    margin-bottom:32px;
+  }
+  .deadline-block p:first-child{
+    color:var(--white);
+    font-weight:700;
+    font-size:16px;
+    margin-bottom:8px;
+  }
+  .deadline-block p:last-child{
+    color:var(--gray);
+    font-size:14px;
+    line-height:1.5;
+  }
+
+  /* Delivery Cards (3×1 grid) */
+  .delivery-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-bottom:24px;
+  }
+  .delivery-card{
+    background:var(--indigo);
+    border-radius:var(--radius);
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    border:1px solid transparent;
+    transition:border-color .3s var(--ease),transform .3s var(--ease);
+  }
+  .delivery-card:hover{
+    border-color:var(--ochre);
+    transform:translateY(-4px);
+  }
+  .delivery-card__icon{
+    width:44px;height:44px;
+    display:grid;place-items:center;
+    border-radius:10px;
+    background:var(--bg);
+    color:var(--ochre);
+  }
+  .delivery-card__icon svg{width:22px;height:22px}
+  .delivery-card__title{
+    color:var(--white);
+    font-weight:700;
+    font-size:16px;
+    line-height:1.25;
+  }
+  .delivery-card__text{
+    color:var(--gray);
+    font-size:14px;
+    line-height:1.5;
+  }
+  .delivery-note{
+    color:var(--gray);
+    font-size:14px;
+    margin-bottom:32px;
+    padding-left:16px;
+    border-left:2px solid var(--ochre);
+  }
+  .delivery-note b{
+    color:var(--white);
+    font-weight:500;
+  }
+  .highlight-accent{
+    background:var(--indigo);
+    border:1.5px solid var(--orange);
+    border-radius:var(--radius);
+    padding:24px;
+  }
+  .highlight-accent h3{
+    color:var(--white);
+    font-weight:700;
+    font-size:17px;
+    line-height:1.3;
+    margin-bottom:12px;
+  }
+  .highlight-accent p{
+    color:var(--gray);
+    font-size:14px;
+    line-height:1.55;
+  }
+
+  /* Contacts */
+  .contacts{
+    text-align:center;
+    padding:80px 0;
+  }
+  .contacts .section-title{
+    margin:0 auto 16px;
+  }
+  .contacts .section-lead{
+    margin:0 auto 32px;
+  }
+
+  /* Footer */
+  .footer{
+    border-top:1px solid var(--indigo);
+    padding:36px 0 40px;
+  }
+  .footer__inner{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    align-items:flex-start;
+  }
+  .footer__copy{
+    font-size:12px;
+    color:var(--gray);
+  }
+  .footer__legal{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .footer__legal a{
+    font-size:12px;
+    color:var(--gray);
+    transition:color .25s var(--ease);
+  }
+  .footer__legal a:hover{
+    color:var(--white);
+  }
+  .footer__developer{
+    font-size:12px;
+    color:var(--gray);
+  }
+  .footer__developer a{
+    color:var(--orange);
+    font-weight:500;
+  }
+  .footer__developer a:hover{
+    color:var(--white);
+  }
+
+  /* Desktop */
+  @media (min-width:768px){
+    .container{padding:0 32px}
+    section{padding:96px 0}
+    .hero{padding:100px 0}
+    .hero__title{font-size:72px}
+    .hero__subtitle{font-size:19px}
+    .section-title{font-size:36px}
+    .section-lead{font-size:17px}
+
+    .nav{display:block}
+    .burger{display:none}
+
+    .grid{
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
+    }
+    .card__body{padding:18px 18px 22px}
+    .card__name{font-size:16px}
+    .card__desc{font-size:13px}
+
+    .carousel{
+      gap:20px;
+      overflow-x:visible;
+      scroll-snap-type:none;
+    }
+    .carousel__slide{
+      flex:1 1 0;
+      min-width:0;
+    }
+    .carousel__dots{display:none}
+
+    .custom-grid{
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
+    }
+    .custom-card__caption{padding:20px 24px;font-size:16px}
+
+    .delivery-grid{
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    .footer__inner{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:center;
+    }
+  }
+
+  @media (min-width:1024px){
+    .hero__title{font-size:88px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="#" class="logo" aria-label="Лавка UZEL — на главную">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 6c4 0 4 6 8 6s4-6 8-6"/>
+          <path d="M2 18c4 0 4-6 8-6s4 6 8 6 4 0 4 0"/>
+        </svg>
+      </span>
+      <span class="logo__name">Лавка UZEL</span>
+    </a>
+
+    <nav class="nav" aria-label="Основная навигация">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="#available">В наличии</a></li>
+        <li><a class="nav__link" href="#custom">На заказ</a></li>
+        <li><a class="nav__link" href="#gift">Упаковка</a></li>
+        <li><a class="nav__link" href="#delivery">Доставка</a></li>
+        <li><a class="nav__link" href="#contacts">Контакты</a></li>
+      </ul>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul class="mobile-menu__list">
+      <li><a class="mobile-menu__link" href="#available">В наличии</a></li>
+      <li><a class="mobile-menu__link" href="#custom">На заказ</a></li>
+      <li><a class="mobile-menu__link" href="#gift">Упаковка</a></li>
+      <li><a class="mobile-menu__link" href="#delivery">Доставка и оплата</a></li>
+      <li><a class="mobile-menu__link" href="#contacts">Контакты</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero__eyebrow">Ручная работа · Натуральные материалы</span>
+      <h1 class="hero__title">Лавка UZEL</h1>
+      <p class="hero__subtitle">Декор и аксессуары для вашего пространства</p>
+      <img class="hero__image" src="images/hero-main.jpg" alt="Лавка UZEL — декор и аксессуары ручной работы">
+      <a class="btn btn--primary" href="https://t.me/Mazurtin" target="_blank" rel="noopener">
+        Написать мне
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- В НАЛИЧИИ -->
+  <section id="available">
+    <div class="container">
+      <h2 class="section-title">Готовые изделия: отправка в течение 1–2 дней</h2>
+      <p class="section-lead">Авторские аксессуары ручной работы. Каждое изделие создано в единственном экземпляре и готово к отправке.</p>
+
+      <div class="btn-group">
+        <a class="btn btn--primary" href="#available-cards">Подробнее</a>
+        <a class="btn btn--ghost" href="https://t.me/Mazurtin" target="_blank" rel="noopener">Купить</a>
+      </div>
+
+      <div class="grid" id="available-cards">
+        <article class="card">
+          <div class="card__media">
+            <img src="images/panno-uzel.jpg" alt="Панно Узел">
+          </div>
+          <div class="card__body">
+            <span class="card__status">В наличии</span>
+            <h3 class="card__name">Панно «Узел»</h3>
+            <p class="card__desc">Хлопковый шнур, деревянная основа. Плетение вручную.</p>
+            <div class="card__foot">
+              <span class="card__price">
+                <span class="card__price-number">4 800</span>
+                <span class="card__price-currency">₽</span>
+              </span>
+              <a class="btn btn--primary btn--sm" href="https://t.me/Mazurtin" target="_blank" rel="noopener">Забронировать</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__media">
+            <img src="images/korzina-pleten.jpg" alt="Корзина Плетень">
+          </div>
+          <div class="card__body">
+            <span class="card__status">В наличии</span>
+            <h3 class="card__name">Корзина «Плетень»</h3>
+            <p class="card__desc">Лён и джут. Подходит для хранения и декора.</p>
+            <div class="card__foot">
+              <span class="card__price">
+                <span class="card__price-number">3 200</span>
+                <span class="card__price-currency">₽</span>
+              </span>
+              <a class="btn btn--primary btn--sm" href="https://t.me/Mazurtin" target="_blank" rel="noopener">Забронировать</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__media">
+            <img src="images/kashpo-gnezdo.jpg" alt="Кашпо Гнездо">
+          </div>
+          <div class="card__body">
+            <span class="card__status">В наличии</span>
+            <h3 class="card__name">Кашпо «Гнездо»</h3>
+            <p class="card__desc">Макраме, хлопковый шнур. Для кашпо диаметром до 18 см.</p>
+            <div class="card__foot">
+              <span class="card__price">
+                <span class="card__price-number">2 400</span>
+                <span class="card__price-currency">₽</span>
+              </span>
+              <a class="btn btn--primary btn--sm" href="https://t.me/Mazurtin" target="_blank" rel="noopener">Забронировать</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__media">
+            <img src="images/sumka-uzelok.jpg" alt="Сумка Узелок">
+          </div>
+          <div class="card__body">
+            <span class="card__status">В наличии</span>
+            <h3 class="card__name">Сумка «Узелок»</h3>
+            <p class="card__desc">Плотный хлопок, плетёные ручки. Повседневная.</p>
+            <div class="card__foot">
+              <span class="card__price">
+                <span class="card__price-number">5 600</span>
+                <span class="card__price-currency">₽</span>
+              </span>
+              <a class="btn btn--primary btn--sm" href="https://t.me/Mazurtin" target="_blank" rel="noopener">Забронировать</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- УПАКОВКА -->
+  <section id="gift">
+    <div class="container">
+      <h2 class="section-title">Готовый подарок: упаковка включена</h2>
+      <h3 class="section-lead">Изделие приходит в крафтовой упаковке — можно сразу вручать.</h3>
+
+      <div class="carousel" id="carousel">
+        <div class="carousel__slide">
+          <div class="carousel__media">
+            <img src="images/pack-unbox.jpg" alt="Распаковка — крафтовая бумага и лента">
+          </div>
+          <p class="carousel__caption">Крафтовая бумага и лента</p>
+        </div>
+
+        <div class="carousel__slide">
+          <div class="carousel__media">
+            <img src="images/pack-bag.jpg" alt="Готовый подарок в бумажном пакете">
+          </div>
+          <p class="carousel__caption">Бумажный пакет</p>
+        </div>
+
+        <div class="carousel__slide">
+          <div class="carousel__media">
+            <img src="images/pack-tag.jpg" alt="Бирка с описанием изделия">
+          </div>
+          <p class="carousel__caption">Бирка с описанием изделия</p>
+        </div>
+      </div>
+
+      <div class="carousel__dots" aria-hidden="true">
+        <button class="carousel__dot is-active" data-slide="0" aria-label="Кадр 1"></button>
+        <button class="carousel__dot" data-slide="1" aria-label="Кадр 2"></button>
+        <button class="carousel__dot" data-slide="2" aria-label="Кадр 3"></button>
+      </div>
+
+      <p class="anchor-line">Вам не придётся думать об упаковке — изделие приходит готовым к вручению.</p>
+    </div>
+  </section>
+
+  <!-- ИНДИВИДУАЛЬНЫЙ ЗАКАЗ -->
+  <section id="custom">
+    <div class="container">
+      <h2 class="section-title">Как заказать изделие под ваш интерьер?</h2>
+
+      <div class="custom-grid">
+        <div class="custom-card">
+          <div class="custom-card__media">
+            <img src="images/custom-interior.jpg" alt="Дизайн по фото интерьера">
+          </div>
+          <p class="custom-card__caption">Дизайн по фото интерьера</p>
+        </div>
+
+        <div class="custom-card">
+          <div class="custom-card__media">
+            <img src="images/custom-sketch.jpg" alt="Разработка дизайна по описанию">
+          </div>
+          <p class="custom-card__caption">Разработка дизайна по описанию</p>
+        </div>
+      </div>
+
+      <div class="deadline-block">
+        <p>Срок изготовления: 9–12 дней</p>
+        <p>Изготовление под заказ требует времени — каждое изделие создаётся вручную, без конвейера.</p>
+      </div>
+
+      <a class="btn btn--ghost" href="https://t.me/Mazurtin" target="_blank" rel="noopener">
+        Обсудить проект
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ДОСТАВКА -->
+  <section id="delivery">
+    <div class="container">
+      <h2 class="section-title">Как и куда я доставлю заказ?</h2>
+
+      <div class="delivery-grid">
+        <!-- Карточка 1: Отправка -->
+        <div class="delivery-card">
+          <div class="delivery-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+          </div>
+          <h3 class="delivery-card__title">Отправка по всей России</h3>
+          <p class="delivery-card__text">СДЭК, Озон, 5Post.</p>
+        </div>
+
+        <!-- Карточка 2: Упаковка -->
+        <div class="delivery-card">
+          <div class="delivery-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <path d="M3.3 7 12 12l8.7-5"/><path d="M12 22V12"/>
+            </svg>
+          </div>
+          <h3 class="delivery-card__title">Надёжная упаковка</h3>
+          <p class="delivery-card__text">Изделие зафиксировано в коробке.</p>
+        </div>
+
+        <!-- Карточка 3: Оплата -->
+        <div class="delivery-card">
+          <div class="delivery-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/>
+              <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+              <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"/>
+            </svg>
+          </div>
+          <h3 class="delivery-card__title">Оплата</h3>
+          <p class="delivery-card__text">Перевод на карту.</p>
+        </div>
+      </div>
+
+      <p class="delivery-note"><b>Отправка в течение 1–2 дней после оплаты.</b></p>
+
+      <div class="highlight-accent">
+        <h3>Крупные и хрупкие изделия передаю только лично в Екатеринбурге.</h3>
+        <p>Некоторые изделия я не отправляю в другие города из-за габаритов или хрупкости. Такие изделия я передаю при личной встрече.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- КОНТАКТЫ -->
+  <section id="contacts" class="contacts">
+    <div class="container">
+      <h2 class="section-title">Написать в Telegram</h2>
+      <h3 class="section-lead">Помогу выбрать готовое изделие из наличия или разработаю эскиз декора под ваш интерьер. Отвечаю лично, без менеджеров и ботов.</h3>
+
+      <a class="btn btn--primary" href="https://t.me/Mazurtin" target="_blank" rel="noopener">
+        Обсудить
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="footer__copy">© 2024 Лавка UZEL. Все права защищены.</p>
+
+    <div class="footer__legal">
+      <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
+      <a href="public-offer.html" target="_blank">Публичная оферта</a>
+      <span class="footer__developer">Разработчик: <a href="https://tinkriskiss.github.io/portfolio-kris-mazur/" target="_blank" rel="noopener">&lt;mk&gt;</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Бургер-меню
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  const menuLinks = menu.querySelectorAll('a');
+
+  const toggleMenu = (force) => {
+    const willOpen = typeof force === 'boolean' ? force : !menu.classList.contains('is-open');
+    burger.classList.toggle('is-open', willOpen);
+    menu.classList.toggle('is-open', willOpen);
+    burger.setAttribute('aria-expanded', String(willOpen));
+    menu.setAttribute('aria-hidden', String(!willOpen));
+    document.body.style.overflow = willOpen ? 'hidden' : '';
+  };
+
+  burger.addEventListener('click', () => toggleMenu());
+  menuLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false)));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.classList.contains('is-open')) toggleMenu(false);
+  });
+
+  // Карусель: синхронизация точек с прокруткой
+  const carousel = document.getElementById('carousel');
+  const dots = document.querySelectorAll('.carousel__dot');
+  const slides = carousel.querySelectorAll('.carousel__slide');
+
+  const updateActiveDot = () => {
+    if (window.innerWidth >= 768) return;
+    const scrollLeft = carousel.scrollLeft;
+    const slideWidth = slides[0].offsetWidth + 14;
+    const index = Math.round(scrollLeft / slideWidth);
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('is-active', i === index);
+    });
+  };
+
+  carousel.addEventListener('scroll', updateActiveDot, { passive: true });
+  window.addEventListener('resize', updateActiveDot);
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const slideWidth = slides[0].offsetWidth + 14;
+      carousel.scrollTo({ left: slideWidth * i, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>

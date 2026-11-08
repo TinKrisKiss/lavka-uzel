@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#191a1f" />
+<title>Ловец снов «Красная ива» — Лавка UZEL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+/* Подтверждение Пинтерест */
+<meta name="p:domain_verify" content="52aa7bb9a3e4f843c923133198d8fc6d"/>
+
+<style>
+  :root{
+    --bg:#191a1f;
+    --indigo:#222836;
+    --orange:#e78608;
+    --ochre:#a86e16;
+    --gray:#a7a198;
+    --white:#ededed;
+    --radius:14px;
+    --maxw:1120px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-weight:400;
+    background-color:var(--bg);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+    background-repeat:repeat;
+    background-blend-mode:multiply;
+    color:var(--gray);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  img,svg{display:block;max-width:100%}
+
+  .container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+  /* Header */
+  .header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(25,26,31,.95);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--indigo);
+  }
+  .header__inner{
+    display:flex;align-items:center;justify-content:space-between;height:64px;
+  }
+  .header__back{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--gray);font-size:14px;
+    transition:color .25s var(--ease);
+  }
+  .header__back:hover{color:var(--white)}
+  .header__back svg{width:16px;height:16px}
+  .header__logo{
+    display:flex;align-items:center;gap:10px;
+    font-weight:700;color:var(--white);letter-spacing:.02em;font-size:15px;
+  }
+  .header__logo-mark{
+    width:28px;height:28px;display:grid;place-items:center;
+    border:1.5px solid var(--ochre);border-radius:50%;color:var(--ochre);
+  }
+  .header__logo-mark svg{width:14px;height:14px}
+
+  /* Sections */
+  section{padding:64px 0}
+  .section-title{
+    font-weight:700;font-size:22px;line-height:1.2;
+    color:var(--orange);margin-bottom:20px;letter-spacing:-.01em;
+  }
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:14px 26px;border-radius:12px;
+    font-weight:500;font-size:15px;letter-spacing:.01em;
+    transition:transform .25s var(--ease),opacity .25s var(--ease),background .25s var(--ease),color .25s var(--ease);
+    white-space:nowrap;
+  }
+  .btn--primary{background:var(--orange);color:var(--white)}
+  .btn--primary:hover{opacity:.88;transform:translateY(-2px)}
+  .btn--lg{padding:16px 32px;font-size:16px}
+
+  .microtext{color:var(--gray);font-size:13px;margin-top:14px;line-height:1.5}
+
+  /* Gallery */
+  .gallery{
+    display:flex;gap:14px;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;scroll-behavior:smooth;
+    padding-bottom:8px;margin-bottom:32px;scrollbar-width:none;
+  }
+  .gallery::-webkit-scrollbar{display:none}
+  .gallery__slide{
+    flex:0 0 85%;scroll-snap-align:start;
+    aspect-ratio:4/5;background:var(--indigo);
+    border-radius:var(--radius);overflow:hidden;
+  }
+  .gallery__slide img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .5s var(--ease);
+  }
+  .gallery__slide:hover img{transform:scale(1.03)}
+  .gallery__dots{
+    display:flex;justify-content:center;gap:8px;margin-bottom:32px;
+  }
+  .gallery__dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--indigo);border:none;padding:0;
+    transition:background .25s var(--ease),transform .25s var(--ease);
+  }
+  .gallery__dot.is-active{background:var(--orange);transform:scale(1.25)}
+
+  /* Product hero info */
+  .product-hero__title{
+    font-weight:700;font-size:32px;line-height:1.15;
+    color:var(--orange);letter-spacing:-.01em;
+    margin-bottom:16px;
+  }
+  .product-hero__price{
+    font-weight:700;font-size:28px;color:var(--white);
+    margin-bottom:24px;
+  }
+  .product-hero__price span{
+    font-size:18px;margin-left:4px;
+  }
+
+  /* Lead block */
+  .lead-block{
+    background:var(--indigo);
+    border-left:2px solid var(--ochre);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:24px;
+    margin-bottom:40px;
+  }
+  .lead-block h3{
+    color:var(--gray);
+    font-size:16px;font-weight:400;line-height:1.6;
+  }
+
+  /* Specs */
+  .specs-list{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .specs-list dt{
+    color:var(--gray);
+    font-weight:400;
+    font-size:15px;
+    padding:14px 0 6px 0;
+    border-bottom:1px solid var(--indigo);
+  }
+  .specs-list dd{
+    color:var(--white);
+    font-weight:500;
+    font-size:15px;
+    padding:6px 0 14px 0;
+    border-bottom:1px solid var(--indigo);
+    text-align:right;
+  }
+  .specs-list dt:last-of-type,
+  .specs-list dd:last-of-type{
+    border-bottom:none;
+  }
+
+  /* Context */
+  .context-text{
+    color:var(--gray);
+    font-size:16px;line-height:1.6;
+    max-width:640px;
+  }
+
+  /* Care */
+  .care-list{
+    list-style:none;
+    display:flex;flex-direction:column;gap:20px;
+  }
+  .care-list li{
+    display:flex;gap:16px;align-items:flex-start;
+  }
+  .care-list__icon{
+    flex-shrink:0;width:40px;height:40px;
+    display:grid;place-items:center;
+    border-radius:10px;background:var(--indigo);color:var(--ochre);
+  }
+  .care-list__icon svg{width:20px;height:20px}
+  .care-list__text{color:var(--gray);font-size:15px;line-height:1.5}
+  .care-list__text b{color:var(--white);font-weight:500}
+
+  /* Delivery box */
+  .delivery-box{
+    background:var(--indigo);
+    border:1.5px solid var(--orange);
+    border-radius:var(--radius);
+    padding:28px;
+  }
+  .delivery-box p{
+    color:var(--gray);font-size:15px;line-height:1.6;
+  }
+
+  /* Final CTA */
+  .final-cta{
+    text-align:center;
+    padding:80px 0;
+  }
+  .final-cta .section-title{margin:0 auto 32px}
+
+  /* Footer */
+  .footer{
+    border-top:1px solid var(--indigo);
+    padding:36px 0 40px;
+  }
+  .footer__inner{
+    display:flex;flex-direction:column;gap:20px;align-items:flex-start;
+  }
+  .footer__copy{font-size:12px;color:var(--gray)}
+  .footer__legal{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+  .footer__legal a{font-size:12px;color:var(--gray);transition:color .25s var(--ease)}
+  .footer__legal a:hover{color:var(--white)}
+  .footer__developer{font-size:12px;color:var(--gray)}
+  .footer__developer a{color:var(--orange);font-weight:500}
+  .footer__developer a:hover{color:var(--white)}
+
+  /* Desktop */
+  @media (min-width:768px){
+    .container{padding:0 32px}
+    section{padding:96px 0}
+    .section-title{font-size:26px}
+
+    .gallery{
+      gap:20px;overflow-x:visible;scroll-snap-type:none;
+    }
+    .gallery__slide{flex:1 1 0;min-width:0}
+    .gallery__dots{display:none}
+
+    .product-hero__title{font-size:44px}
+    .product-hero__price{font-size:32px}
+
+    .specs-list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0 40px;
+    }
+    .specs-list dt{
+      padding:12px 0;
+      border-bottom:none;
+      text-align:left;
+    }
+    .specs-list dd{
+      padding:12px 0;
+      border-bottom:none;
+      text-align:left;
+    }
+
+    .footer__inner{
+      flex-direction:row;justify-content:space-between;align-items:center;
+    }
+  }
+
+  @media (min-width:1024px){
+    .product-hero__title{font-size:52px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="index.html#available" class="header__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Назад к каталогу
+    </a>
+    <a href="index.html" class="header__logo" aria-label="Лавка UZEL — на главную">
+      <span class="header__logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 6c4 0 4 6 8 6s4-6 8-6"/>
+          <path d="M2 18c4 0 4-6 8-6s4 6 8 6 4 0 4 0"/>
+        </svg>
+      </span>
+      <span>Лавка UZEL</span>
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <!-- БЛОК 1: ГАЛЕРЕЯ + H1 + ЦЕНА + CTA -->
+  <section style="padding-top:48px;padding-bottom:40px">
+    <div class="container">
+      <div class="gallery" id="gallery">
+        <div class="gallery__slide">
+          <img src="images/dreamcatcher-1.jpg" alt="Ловец снов Красная ива — общий вид">
+        </div>
+        <div class="gallery__slide">
+          <img src="images/dreamcatcher-2.jpg" alt="Ловец снов Красная ива — детали плетения">
+        </div>
+        <div class="gallery__slide">
+          <img src="images/dreamcatcher-3.jpg" alt="Ловец снов Красная ива — перья и бусины">
+        </div>
+      </div>
+
+      <div class="gallery__dots" aria-hidden="true">
+        <button class="gallery__dot is-active" data-slide="0" aria-label="Фото 1"></button>
+        <button class="gallery__dot" data-slide="1" aria-label="Фото 2"></button>
+        <button class="gallery__dot" data-slide="2" aria-label="Фото 3"></button>
+      </div>
+
+      <h1 class="product-hero__title">Ловец снов «Красная ива»</h1>
+      <div class="product-hero__price">2 500 <span>₽</span></div>
+
+      <a class="btn btn--primary btn--lg" href="https://t.me/Mazurtin" target="_blank" rel="noopener">
+        Оформить заказ
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <p class="microtext">Единственный экземпляр. Отправка в течение 1–2 дней. Подарочная упаковка включена.</p>
+    </div>
+  </section>
+
+  <!-- БЛОК 3: ЛИД -->
+  <section style="padding-top:0">
+    <div class="container">
+      <div class="lead-block">
+        <h3>Этот ловец снов создан вручную из красной ивы и джута, украшен натуральными перьями и деревянными бусинами.<br>Согласно древним верованиям, он охраняет сон: добрые сновидения проходят сквозь паутину к спящему, а тревоги запутываются в нитях и исчезают с рассветом.<br>Идеальный декор для спальни или подарок на новоселье.</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- БЛОК 4: ХАРАКТЕРИСТИКИ -->
+  <section id="specs">
+    <div class="container">
+      <h2 class="section-title">Точные размеры и материалы</h2>
+      <dl class="specs-list">
+        <dt>Диаметр кольца</dt>
+        <dd>24 см</dd>
+        <dt>Общая длина с перьями</dt>
+        <dd>50 см</dd>
+        <dt>Глубина (выступ от стены)</dt>
+        <dd>1,5 см</dd>
+        <dt>Вес</dt>
+        <dd>около 100 г</dd>
+        <dt>Материалы</dt>
+        <dd>красная ива (кольцо), джут (сетка), натуральные голубиные и вороновые перья, деревянные бусины</dd>
+        <dt>Крепление</dt>
+        <dd>петелька для подвеса</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- БЛОК 5: КОНТЕКСТ -->
+  <section id="context">
+    <div class="container">
+      <h2 class="section-title">Где будет гармонично смотреться</h2>
+      <p class="context-text">Этот авторский аксессуар впишется в интерьеры в стилях бохо, сканди, эко или этника.<br>Натуральные материалы — ива, джут, перья — создают тактильную связь с природой, добавляя пространству спокойствия.<br>Лучше всего раскрывается в спальне, где становится не просто декором, но и смысловым элементом.</p>
+    </div>
+  </section>
+
+  <!-- БЛОК 6: УХОД -->
+  <section id="care">
+    <div class="container">
+      <h2 class="section-title">Простые правила ухода</h2>
+      <ul class="care-list">
+        <li>
+          <span class="care-list__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              <path d="M19 6l1 14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2L5 6"/>
+            </svg>
+          </span>
+          <p class="care-list__text"><b>Очистка:</b> аккуратно смахните пыль сухой тряпкой.</p>
+        </li>
+        <li>
+          <span class="care-list__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+            </svg>
+          </span>
+          <p class="care-list__text"><b>Влага:</b> избегать попадания воды и повышенной влажности — не размещать в ванной комнате.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- БЛОК 8: ДОСТАВКА И УПАКОВКА -->
+  <section id="delivery">
+    <div class="container">
+      <h2 class="section-title">Безопасная доставка по всей России</h2>
+      <div class="delivery-box">
+        <p>Изделие упаковывается в подарочную крафтовую бумагу и коробку с лентой — можно сразу вручать как подарок.<br>Фиксируется внутри жёсткого короба, чтобы доехать без повреждений.<br>Отправка СДЭК, Озон, 5Post в течение 1–2 дней после оплаты.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- БЛОК 9: ФИНАЛЬНЫЙ CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2 class="section-title">Готовы добавить этот оберег в свой интерьер?</h2>
+      <a class="btn btn--primary btn--lg" href="https://t.me/Mazurtin" target="_blank" rel="noopener">
+        Оформить заказ
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="footer__copy">© 2024 Лавка UZEL. Все права защищены.</p>
+    <div class="footer__legal">
+      <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
+      <a href="public-offer.html" target="_blank">Публичная оферта</a>
+      <span class="footer__developer">Разработчик: <a href="https://tinkriskiss.github.io/portfolio-kris-mazur/" target="_blank" rel="noopener">&lt;mk&gt;</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Галерея: синхронизация точек со скроллом
+  const gallery = document.getElementById('gallery');
+  const dots = document.querySelectorAll('.gallery__dot');
+  const slides = gallery.querySelectorAll('.gallery__slide');
+
+  const updateActiveDot = () => {
+    if (window.innerWidth >= 768) return;
+    const scrollLeft = gallery.scrollLeft;
+    const slideWidth = slides[0].offsetWidth + 14;
+    const index = Math.round(scrollLeft / slideWidth);
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('is-active', i === index);
+    });
+  };
+
+  gallery.addEventListener('scroll', updateActiveDot, { passive: true });
+  window.addEventListener('resize', updateActiveDot);
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const slideWidth = slides[0].offsetWidth + 14;
+      gallery.scrollTo({ left: slideWidth * i, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>

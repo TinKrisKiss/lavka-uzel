@@ -25,7 +25,10 @@
   body{
     font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     font-weight:400;
-    background:var(--bg);
+    background-color:var(--bg);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.60'/></svg>");
+    background-repeat: repeat;
+    background-blend-mode: multiply;
     color:var(--gray);
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
@@ -154,12 +157,12 @@
     font-weight:700;
     font-size:28px;
     line-height:1.15;
-    color:var(--ochre);
+    color:var(--orange); /* Изменено на оранжевый */
     margin-bottom:16px;
     letter-spacing:-.01em;
   }
   .section-lead{
-    color:var(--orange);
+    color:var(--gray); /* Возвращён серый цвет */
     font-size:16px;
     font-weight:400;
     max-width:640px;
@@ -278,8 +281,15 @@
     padding:14px 14px 16px;
     display:flex;
     flex-direction:column;
-    gap:6px;
+    gap:8px;
     flex:1;
+  }
+  .card__status{
+    display:inline-block;
+    font-size:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ochre);
   }
   .card__name{
     color:var(--white);
@@ -291,7 +301,6 @@
     color:var(--gray);
     font-size:12px;
     line-height:1.45;
-    margin-bottom:10px;
   }
   .card__foot{
     display:flex;
@@ -299,6 +308,8 @@
     justify-content:space-between;
     gap:8px;
     margin-top:auto;
+    padding-top:8px;
+    border-top:1px solid rgba(167,161,152,0.15);
   }
   .card__price{
     color:var(--white);
@@ -310,14 +321,6 @@
   }
   .card__price-number{font-size:16px}
   .card__price-currency{font-size:12px;margin-bottom:2px}
-  .card__status{
-    display:inline-block;
-    font-size:10px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:var(--ochre);
-    margin-bottom:4px;
-  }
 
   /* Carousel (Packaging) */
   .carousel{
@@ -390,14 +393,23 @@
     gap:16px;
     margin-bottom:32px;
   }
+  .custom-card-link{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+  }
   .custom-card{
     background:var(--indigo);
     border-radius:var(--radius);
     overflow:hidden;
     border:1px solid transparent;
-    transition:border-color .3s var(--ease);
+    transition:border-color .3s var(--ease),transform .3s var(--ease);
+    height:100%;
   }
-  .custom-card:hover{border-color:var(--ochre)}
+  .custom-card-link:hover .custom-card{
+    border-color:var(--ochre);
+    transform:translateY(-4px);
+  }
   .custom-card__media{
     aspect-ratio:4/3;
     background:var(--bg);
@@ -409,7 +421,7 @@
     object-fit:cover;
     transition:transform .5s var(--ease);
   }
-  .custom-card:hover .custom-card__media img{transform:scale(1.03)}
+  .custom-card-link:hover .custom-card__media img{transform:scale(1.03)}
   .custom-card__caption{
     padding:16px 18px;
     color:var(--white);
@@ -435,7 +447,7 @@
     line-height:1.5;
   }
 
-  /* Delivery Cards (3×1 grid) */
+  /* Delivery Cards (2×1 grid) */
   .delivery-grid{
     display:grid;
     grid-template-columns:1fr;
@@ -597,7 +609,7 @@
     .custom-card__caption{padding:20px 24px;font-size:16px}
 
     .delivery-grid{
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(2,1fr); /* Сетка 2x1 на десктопе */
       gap:20px;
     }
 
@@ -676,36 +688,33 @@
     </div>
   </section>
 
-  <!-- В НАЛИЧИИ -->
+  <!-- ГОТОВЫЕ ИЗДЕЛИЯ -->
   <section id="available">
     <div class="container">
-      <h2 class="section-title">Готовые изделия: отправка в течение 1–2 дней</h2>
-      <p class="section-lead">Авторские аксессуары ручной работы. Каждое изделие создано в единственном экземпляре и готово к отправке.</p>
-
-      <div class="btn-group">
-        <a class="btn btn--primary" href="#available-cards">Подробнее</a>
-        <a class="btn btn--ghost" href="https://t.me/Mazurtin" target="_blank" rel="noopener">Купить</a>
-      </div>
+      <h2 class="section-title">Готовые изделия</h2>
+      <p class="section-lead">Отправка в течение 1–2 дней.</p>
 
       <div class="grid" id="available-cards">
+        <!-- Товар 1 -->
         <article class="card">
           <div class="card__media">
             <img src="images/panno-uzel.jpg" alt="Панно Узел">
           </div>
           <div class="card__body">
             <span class="card__status">В наличии</span>
-            <h3 class="card__name">Панно «Узел»</h3>
+            <h3 class="card__name">Ловец снов «Красная ива»</h3>
             <p class="card__desc">Хлопковый шнур, деревянная основа. Плетение вручную.</p>
             <div class="card__foot">
               <span class="card__price">
-                <span class="card__price-number">4 800</span>
+                <span class="card__price-number">2 500</span>
                 <span class="card__price-currency">₽</span>
               </span>
-              <a class="btn btn--primary btn--sm" href="https://t.me/Mazurtin" target="_blank" rel="noopener">Забронировать</a>
+              <a class="btn btn--primary btn--sm" href="product-dreamcatcher.html">Подробнее</a>
             </div>
           </div>
         </article>
 
+        <!-- Товар 2 -->
         <article class="card">
           <div class="card__media">
             <img src="images/korzina-pleten.jpg" alt="Корзина Плетень">
@@ -719,11 +728,12 @@
                 <span class="card__price-number">3 200</span>
                 <span class="card__price-currency">₽</span>
               </span>
-              <a class="btn btn--primary btn--sm" href="https://t.me/Mazurtin" target="_blank" rel="noopener">Забронировать</a>
+              <a class="btn btn--primary btn--sm" href="product-korzina.html">Подробнее</a>
             </div>
           </div>
         </article>
 
+        <!-- Товар 3 -->
         <article class="card">
           <div class="card__media">
             <img src="images/kashpo-gnezdo.jpg" alt="Кашпо Гнездо">
@@ -737,11 +747,12 @@
                 <span class="card__price-number">2 400</span>
                 <span class="card__price-currency">₽</span>
               </span>
-              <a class="btn btn--primary btn--sm" href="https://t.me/Mazurtin" target="_blank" rel="noopener">Забронировать</a>
+              <a class="btn btn--primary btn--sm" href="product-kashpo.html">Подробнее</a>
             </div>
           </div>
         </article>
 
+        <!-- Товар 4 -->
         <article class="card">
           <div class="card__media">
             <img src="images/sumka-uzelok.jpg" alt="Сумка Узелок">
@@ -755,7 +766,7 @@
                 <span class="card__price-number">5 600</span>
                 <span class="card__price-currency">₽</span>
               </span>
-              <a class="btn btn--primary btn--sm" href="https://t.me/Mazurtin" target="_blank" rel="noopener">Забронировать</a>
+              <a class="btn btn--primary btn--sm" href="product-sumka.html">Подробнее</a>
             </div>
           </div>
         </article>
@@ -808,19 +819,25 @@
       <h2 class="section-title">Как заказать изделие под ваш интерьер?</h2>
 
       <div class="custom-grid">
-        <div class="custom-card">
-          <div class="custom-card__media">
-            <img src="images/custom-interior.jpg" alt="Дизайн по фото интерьера">
+        <!-- Карточка 1: Ссылка на отдельную страницу -->
+        <a href="custom-photo.html" class="custom-card-link">
+          <div class="custom-card">
+            <div class="custom-card__media">
+              <img src="images/custom-interior.jpg" alt="Дизайн по фото интерьера">
+            </div>
+            <p class="custom-card__caption">Дизайн по фото интерьера</p>
           </div>
-          <p class="custom-card__caption">Дизайн по фото интерьера</p>
-        </div>
+        </a>
 
-        <div class="custom-card">
-          <div class="custom-card__media">
-            <img src="images/custom-sketch.jpg" alt="Разработка дизайна по описанию">
+        <!-- Карточка 2: Ссылка на отдельную страницу -->
+        <a href="custom-desc.html" class="custom-card-link">
+          <div class="custom-card">
+            <div class="custom-card__media">
+              <img src="images/custom-sketch.jpg" alt="Разработка дизайна по описанию">
+            </div>
+            <p class="custom-card__caption">Разработка дизайна по описанию</p>
           </div>
-          <p class="custom-card__caption">Разработка дизайна по описанию</p>
-        </div>
+        </a>
       </div>
 
       <div class="deadline-block">
@@ -865,19 +882,6 @@
           </div>
           <h3 class="delivery-card__title">Надёжная упаковка</h3>
           <p class="delivery-card__text">Изделие зафиксировано в коробке.</p>
-        </div>
-
-        <!-- Карточка 3: Оплата -->
-        <div class="delivery-card">
-          <div class="delivery-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/>
-              <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
-              <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"/>
-            </svg>
-          </div>
-          <h3 class="delivery-card__title">Оплата</h3>
-          <p class="delivery-card__text">Перевод на карту.</p>
         </div>
       </div>
 
